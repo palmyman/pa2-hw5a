@@ -30,11 +30,12 @@ class NoRouteException {
 template <typename _T, typename _E>
 class CRoute {
 public:
-    // default constructor
-    // destructor
-    // Add 
-    // Find (with optional filter)
-
+    CRoute();
+    ~CRoute();
+    CRoute & Add(const _T &, const _T &, const _E &);
+    list<_T> Find(const _T &, const _T &) const;
+    template<typename _F>
+    list<_T> Find(const _T &, const _T &, _F ) const;
 };
 
 #ifndef __PROGTEST__
