@@ -29,13 +29,46 @@ class NoRouteException {
 
 template <typename _T, typename _E>
 class CRoute {
+    map<_T, multimap<_T, _E>> mainRoute;
 public:
-    CRoute();
-    ~CRoute();
-    CRoute & Add(const _T &, const _T &, const _E &);
-    list<_T> Find(const _T &, const _T &) const;
+    //CRoute();
+    //~CRoute();
+    CRoute & Add(const _T & from, const _T & to, const _E & value) {
+        typename map<_T, multimap<_T, _E>>::iterator mainRouteIT;
+        //from
+        mainRouteIT = mainRoute.find(from);
+        if(mainRouteIT == mainRoute.end()) {
+            //new node
+            multimap <_T,_E> newNode;
+            newNode.insert(make_pair(from, value));
+            mainRoute.insert(make_pair(from, newNode));
+        } else {
+            //adding to an existing node
+            mainRouteIT->second.insert(make_pair(to, value));
+        }
+        
+        //to
+        mainRouteIT = mainRoute.find(to);
+        if(mainRouteIT == mainRoute.end()) {
+            //new node
+            multimap <_T,_E> newNode;
+            newNode.insert(make_pair(to, value));
+            mainRoute.insert(make_pair(to, newNode));
+        } else {
+            //adding to an existing node
+            mainRouteIT->second.insert(make_pair(from, value));
+        }
+        return * this;
+    }
+    list<_T> Find(const _T &, const _T &) const {
+        list<_T> route;
+        return route;
+    }
     template<typename _F>
-    list<_T> Find(const _T &, const _T &, _F ) const;
+    list<_T> Find(const _T &, const _T &, const _F) const {
+        list<_T> route;
+        return route;
+    };
 };
 
 #ifndef __PROGTEST__
