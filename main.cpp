@@ -60,14 +60,38 @@ public:
         }
         return * this;
     }
-    list<_T> Find(const _T &, const _T &) const {
-        list<_T> route;
-        return route;
+    list<_T> Find(const _T & from, const _T & to) {
+        typename map<_T, multimap<_T, _E>>::iterator mainRouteIT;        
+        list<_T> retunRoute;
+        
+        map<_T, _T> route;
+        typename map<_T, _T>::iterator routeIT;
+        
+        deque<_T> linear;
+        typename deque<_T>::iterator linearIT;
+        
+        set<_T> beenTo;
+        typename set<_T>::iterator beenToIT;
+        
+        //no route exception
+        mainRouteIT = mainRoute.find(from);
+        if(mainRouteIT == mainRoute.end()) {
+            throw NoRouteException();
+        }
+        
+        linear.push_back(mainRouteIT->first);
+        
+        _T current(from);
+        
+        while(!linear.empty()) {
+            current = linear.at(0);
+        }
+        return retunRoute;
     }
     template<typename _F>
-    list<_T> Find(const _T &, const _T &, const _F) const {
-        list<_T> route;
-        return route;
+    list<_T> Find(const _T &, const _T &, const _F) {
+        list<_T> retunRoute;
+        return retunRoute;
     };
 };
 
